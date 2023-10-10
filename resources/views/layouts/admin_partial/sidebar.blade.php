@@ -70,14 +70,14 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="pages/layout/boxed.html" class="nav-link">
+                             <a href="{{route('childcategory.index')}}" class="nav-link">
                                  <i class="far fa-circle nav-icon text-warning"></i>
                                  <p>Chaild Category</p>
                              </a>
                          </li>
 
                          <li class="nav-item">
-                             <a href="pages/layout/boxed.html" class="nav-link">
+                             <a href="{{route('brand.index')}}" class="nav-link">
                                  <i class="far fa-circle nav-icon text-warning"></i>
                                  <p>Brand</p>
                              </a>
@@ -86,12 +86,21 @@
                  </li>
 
                  <li class="nav-header">PROFILE</li>
+
+                   <li class="nav-item">
+                     <a href="{{route('password.change')}}" class="nav-link">
+                         <i class="nav-icon fa-solid fa-lock text-danger"></i>
+                         <p class="text">Password Change</p>
+                     </a>
+                 </li>
+                 
                  <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon far fa-circle text-danger"></i>
                          <p class="text">Logout</p>
                      </a>
                  </li>
+                
 
              </ul>
          </nav>

@@ -92,7 +92,7 @@ class SubcategoryController extends Controller
     public function subcategory_update(Request $request)
     {
         $validated = $request->validate([
-            'subcategory_name' => 'required|unique:subcategories|max:100',
+            'subcategory_name' => 'string',
         ]);
 
         //Quere Builder

@@ -60,22 +60,15 @@
                                              </td>
 
                                              <td>
-                                              <a href="{{route('category.delete',$category->id)}}"     class="btn btn-danger btn-lg">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                              </a>
+                                                  <form action="{{ route('category.delete', $category->id) }}"
+                                                        method="POST" class="btn btn-danger btn-sm">
+                                                        @csrf
+                                                        <input type="hidden" name="_method" value="Delete">
+                                                        <button type="submit" class="delete btn btn-danger">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </button>
+                                                    </form>
                                              </td>
-
-                                             {{-- <td>
-                                               <form action="{{ route('category.delete', $category->id) }}" method="POST">
-                                                   @csrf
-                                                   <input type="hidden" name="_method" value="Delete">
-                                                   <button type="submit" class="delete btn btn-danger">
-                                                     Delete
-                                                   </button>
-                                                <i class="fa-solid fa-trash-can"></i>
-
-                                               </form>
-                                             </td --}}
                                         </tr>
                                       @endforeach
                                       
@@ -148,10 +141,14 @@
                       @csrf
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Edit Category Name</label>
-                            <input type="text" class="form-control" id="edit_category_name" name="category_name">
+                            <input type="text" class="form-control @error('category_name') is-invalid @enderror" id="edit_category_name" name="category_name">
                             <input type="hidden" class="form-control" name="id" id="edit_category_id">
 
-                
+                            @error('category_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
@@ -173,7 +170,6 @@
             $.get("edit/"+cat_id, function(data){
                 $('#edit_category_name').val(data.category_name);
                  $('#edit_category_id').val(data.id);
-
             })
         })
     </script>

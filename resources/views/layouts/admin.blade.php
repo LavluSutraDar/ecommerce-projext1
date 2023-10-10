@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> @yield('title') | Coding With Apurva</title>
 
-    <!------------------------------- Google Font: Source Sans Pro ------------------------------->
+    <!-------------------------- Google Font: Source Sans Pro -------------------------->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!------------------------------------- Font Awesome Icons ------------------------------------->
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
     <!------------------------------------- overlayScrollbars ------------------------------------->
@@ -36,6 +38,10 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <!------------------------------- include summernote css ------------------------------->
 
+    <!------------------------ Dropify your input files with style ------------------------>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    <!------------------------ Dropify your input files with style ------------------------>
+
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed     layout-footer-fixed">
@@ -43,7 +49,7 @@
     @guest
     @else
         <div class="wrapper">
-        
+
             <!-- Navbar -->
             @include('layouts.admin_partial.topbar')
             <!-- /.navbar -->
@@ -58,7 +64,7 @@
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            
+
         </aside>
         <!-- /.control-sidebar -->
     </div>
@@ -101,7 +107,7 @@
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-
+ 
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -175,8 +181,9 @@
                 }
             })
         });
-
     </script>
+
+
     <!------------------------------ Sweetalert Script ------------------------------>
 
     <!-------------------------------LOGOUT SCRIPT----------------------------------->
@@ -204,15 +211,7 @@
     <!-------------------------------LOGOUT SCRIPT----------------------------------->
 
     <!------------------------------ include summernote js ------------------------------>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('.summernote').summernote();
-        });
-    </script>
-    <!------------------------------ include summernote js ------------------------------>
-
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"> </script>
 </body>
 
 </html>

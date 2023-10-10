@@ -56,7 +56,7 @@
                                                 <td>{{ $subcategory->subcategory_slug }}</td>
 
                                                 <td>
-                                                    <a href="" class="btn btn-danger btn-lg edit"
+                                                    <a href="" class="btn btn-info btn-lg edit"
                                                         data-id="{{ $subcategory->id }}" data-toggle="modal"
                                                         data-target="#editsubcategoryModal">
                                                         <i class="fa-solid fa-pen-to-square"></i>
@@ -92,10 +92,8 @@
         <!-- /.content -->
     </div>
 
+    {{-- ---------------------------Sub Category Form Modal --------------------------- --}}
 
-    {{-- ---------------------------Sub Category Modal --------------------------- --}}
-
-    <!-- Modal -->
     <div class="modal fade" id="subcategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -111,17 +109,17 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Category Name</label>
                             <select name="category_id" class="form-control">
-                                <option value="hidden">Chosse Category</option>
+                                <option style="color: yellow" selected disabled value="hidden">Chosse Category</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                    <option value="{{ $category->id }}" >
+                                        {{ $category->category_name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Sub Category Name</label>
-                            <input type="text" class="form-control @error('subcategory_name') is-invalid @enderror"
-                                name="subcategory_name">
+                            <input type="text" class="form-control @error('subcategory_name') is-invalid @enderror" name="subcategory_name">
 
                             @error('subcategory_name')
                                 <span class="invalid-feedback" role="alert">
@@ -139,7 +137,7 @@
         </div>
     </div>
 
-    {{-- ---------------------------Sub Category Modal --------------------------- --}}
+    {{-- ---------------------------Sub Category Form Modal --------------------------- --}}
 
 
     {{-- ---------------------------Edit Sub Category  Modal --------------------------- --}}
@@ -173,5 +171,6 @@
             })
         })
     </script>
+    
 @endsection
 

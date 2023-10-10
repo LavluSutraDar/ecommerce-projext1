@@ -45,6 +45,7 @@ class CategoryController extends Controller
             'alert-type' => 'info'
         );
         return redirect()->back()->with($notifacition);
+        
     }
 
     public function category_delete($id){
@@ -77,7 +78,6 @@ class CategoryController extends Controller
     public function category_update(Request $request){
         $validated = $request->validate([
             'category_name' => 'required|unique:categories|max:255',
-
         ]);
 
         //Quere Builder
