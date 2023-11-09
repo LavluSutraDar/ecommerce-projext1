@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+    Password Change
+@endsection
+
 @section('admin_content')
   <div class="content-wrapper">
     <div class="content-header">

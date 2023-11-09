@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-//use Yajra\DataTables\Contracts\DataTable;
-//use DataTables;
+
 
 class ChildCategoryController extends Controller
 {

@@ -1,9 +1,14 @@
+ @php
+     $setting = DB::table('settings')->first();
+ @endphp
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
      <!-- Brand Logo -->
      <a href="{{route('admin.home')}}" class="brand-link">
-         <img src="{{ asset('backend/images/1680368190453.png') }}" alt="AdminLTE Logo"
+        
+         <img src="{{url($setting->logo)}}"
+        
              class="brand-image img-circle elevation-3" style="opacity: .8">
-         <span class="brand-text font-weight-light">Dashboard</span>
+         <span class="brand-text font-weight-light">LH E-Commerce</span>
      </a>
 
      <!-- Sidebar -->
@@ -11,7 +16,7 @@
          <!-- Sidebar user panel (optional) -->
          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
              <div class="image">
-                 <img src="{{ asset('backend/images/1680368190453.png') }}" class="img-circle elevation-2"
+                 <img src="{{ url($setting->fav_icon )}}" class="img-circle elevation-2"
                      alt="User Image">
              </div>
              <div class="info">
@@ -82,6 +87,58 @@
                                  <p>Brand</p>
                              </a>
                          </li>
+
+                         <li class="nav-item">
+                             <a href="{{route('warehouse.index')}}" class="nav-link">
+                                 <i class="far fa-circle nav-icon text-warning"></i>
+                                 <p>Ware House</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+
+                 <li class="nav-item">
+                     <a href="#" class="nav-link">
+                         <i class="fas fa-solid fa-gear nav-icon"></i>
+                         <p>
+                             Settings
+                             <i class="fas fa-angle-left right"></i>
+
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="{{route('setting.seo.index')}}" class="nav-link">
+                                 <i class="fa-solid fa-bars nav-icon"></i>
+                                 <p>SEO Setting</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="{{route('website.setting')}}" class="nav-link">
+                                <i class="fa-solid fa-bars nav-icon"></i>
+                                 <p>Website Setting</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="{{route('create.index.page')}}" class="nav-link">
+                                 <i class="fa-brands fa-pagelines nav-icon text-danger"></i>
+                                 <p>Create Page</p>
+                             </a>
+                         </li>
+
+                         <li class="nav-item">
+                             <a href="{{route('setting.smtp')}}" class="nav-link">
+                                 <i class="fa-solid fa-bars nav-icon"></i>
+                                 <p>SMTP Setting</p>
+                             </a>
+                         </li>
+
+                         <li class="nav-item">
+                             <a href="{{route('brand.index')}}" class="nav-link">
+                                  <i class="fa-solid fa-cart-shopping nav-icon text-info"></i>
+                                 <p>Payment Getway</p>
+                             </a>
+                         </li>
                      </ul>
                  </li>
 
@@ -89,14 +146,14 @@
 
                    <li class="nav-item">
                      <a href="{{route('password.change')}}" class="nav-link">
-                         <i class="nav-icon fa-solid fa-lock text-danger"></i>
+                         <i class="nav-icon fa-solid fa-lock text-light"></i>
                          <p class="text">Password Change</p>
                      </a>
                  </li>
                  
                  <li class="nav-item">
                      <a href="#" class="nav-link">
-                         <i class="nav-icon far fa-circle text-danger"></i>
+                         <i class="fa-solid fa-right-from-bracket nav-icon text-light"></i>
                          <p class="text">Logout</p>
                      </a>
                  </li>

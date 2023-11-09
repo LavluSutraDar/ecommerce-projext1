@@ -20,12 +20,12 @@
     <!------------------------------------- Theme style ------------------------------------->
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
 
-    <!------------------------------------------ DataTables ------------------------------------------>
+    <!-------------------------------- DataTables ------------------------------------->
     <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <!------------------------------------------ DataTables ------------------------------------------>
+    <!----------------------------------- DataTables ------------------------------------->
 
 
     <!--------------------------------------TOSTER CSS-------------------------------------->
@@ -42,6 +42,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
     <!------------------------ Dropify your input files with style ------------------------>
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/sweetalert/sweetalert.min.js') }}">
+ 
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed     layout-footer-fixed">
@@ -107,7 +109,7 @@
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
- 
+
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -160,6 +162,7 @@
 
     <!---------------------------------SWEET ALLERT----------------------------------->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('backend/plugins/sweetalert/sweetalert.min.js') }}"></script>
 
     <!------------------------------ Sweetalert Script ------------------------------>
     <script>
@@ -181,6 +184,49 @@
                 }
             })
         });
+    </script>
+
+    <script>  
+         $(document).on("click", "#delete", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Are you Want to delete?",
+                  text: "This will be Permanently Delete!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } else {
+                    swal("Safe Data!");
+                  }
+                });
+            });
+    </script>
+
+    {{-- before  logout showing alert message --}}
+     <script>  
+         $(document).on("click", "#logout", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Are you Want to logout?",
+                  text: "",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } else {
+                    swal("Not Logout!");
+                  }
+                });
+            });
     </script>
 
 
@@ -211,7 +257,13 @@
     <!-------------------------------LOGOUT SCRIPT----------------------------------->
 
     <!------------------------------ include summernote js ------------------------------>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"> </script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote();
+        });
+    </script>
+
+</body>
 </html>

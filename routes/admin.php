@@ -4,7 +4,11 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubcategoryController;
+use App\Http\Controllers\Admin\WarehouseController;
+use App\Http\Controllers\Admin\WebsiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\LoginController;
@@ -29,7 +33,7 @@ Route::group(['middleware' => 'is_admin'], function () {
     Route::post('/admin/password/update', [AdminController::class, 'admin_password_update'])->name('admin.password.update');
 
     //CATEGORY ROUTES
-    Route::group(['prefix'=>'category'], function(){
+    Route::group(['prefix' => 'category'], function () {
         Route::get('/index', [CategoryController::class, 'category_index'])->name('category.index');
         Route::post('/store', [CategoryController::class, 'category_store'])->name('category.store');
         Route::delete('/delete/{id}', [CategoryController::class, 'category_delete'])->name('category.delete');
@@ -41,11 +45,11 @@ Route::group(['middleware' => 'is_admin'], function () {
     //Sub CATEGORY ROUTES
     Route::group(['prefix' => 'subcategory'], function () {
         Route::get('/index', [SubcategoryController::class, 'subcategory_index'])->name('subcategory.index');
-         Route::post('/store', [SubcategoryController::class, 'subcategory_store'])->name('subcategory.store');
-         Route::delete('/destroy/{id}', [SubcategoryController::class, 'subcategory_destroy'])->name('subcategory.destroy');
-         Route::get('/edit/{id}', [SubcategoryController::class, 'subcategory_edit']);
+        Route::post('/store', [SubcategoryController::class, 'subcategory_store'])->name('subcategory.store');
+        Route::delete('/destroy/{id}', [SubcategoryController::class, 'subcategory_destroy'])->name('subcategory.destroy');
+        Route::get('/edit/{id}', [SubcategoryController::class, 'subcategory_edit']);
 
-         Route::post('/update', [SubcategoryController::class, 'subcategory_update'])->name('subcategory.update');
+        Route::post('/update', [SubcategoryController::class, 'subcategory_update'])->name('subcategory.update');
     });
 
     //CHILD CATEGORY ROUTE
@@ -53,11 +57,11 @@ Route::group(['middleware' => 'is_admin'], function () {
     Route::group(['prefix' => 'childcategory'], function () {
         Route::get('/index', [ChildCategoryController::class, 'childcategory_index'])->name('childcategory.index');
 
-         Route::post('/store', [ChildCategoryController::class, 'childcategory_store'])->name('childcategory.store');
-         Route::get('/destroy/{id}', [ChildCategoryController::class, 'childcategory_destroy'])->name('childcategory.destroy');
-         Route::get('/edit/{id}', [ChildCategoryController::class, 'childcategory_edit']);
+        Route::post('/store', [ChildCategoryController::class, 'childcategory_store'])->name('childcategory.store');
+        Route::get('/destroy/{id}', [ChildCategoryController::class, 'childcategory_destroy'])->name('childcategory.destroy');
+        Route::get('/edit/{id}', [ChildCategoryController::class, 'childcategory_edit']);
 
-         Route::post('/update', [ChildCategoryController::class, 'childcategory_update'])->name('childcategory.update');
+        Route::post('/update', [ChildCategoryController::class, 'childcategory_update'])->name('childcategory.update');
     });
 
     //BRAND ROUTE
@@ -65,10 +69,58 @@ Route::group(['middleware' => 'is_admin'], function () {
     Route::group(['prefix' => 'brand'], function () {
         Route::get('/index', [BrandController::class, 'brand_index'])->name('brand.index');
 
-         Route::post('/store', [BrandController::class, 'brand_store'])->name('brand.store');
-         Route::get('/destroy/{id}', [BrandController::class, 'brand_destroy'])->name('brand.destroy');
-         Route::get('/edit/{id}', [BrandController::class, 'brand_edit']);
+        Route::post('/store', [BrandController::class, 'brand_store'])->name('brand.store');
+        Route::get('/destroy/{id}', [BrandController::class, 'brand_destroy'])->name('brand.destroy');
+        Route::get('/edit/{id}', [BrandController::class, 'brand_edit']);
 
-         Route::post('/update', [BrandController::class, 'brand_update'])->name('brand.update');
+        Route::post('/update', [BrandController::class, 'brand_update'])->name('brand.update');
     });
+
+    //WARE HOUSE ROUTE
+    Route::group(['prefix' => 'warehouse'], function () {
+        Route::get('/index', [WarehouseController::class, 'warehouse_index'])->name('warehouse.index');
+         Route::post('/store', [WarehouseController::class, 'warehouse_store'])->name('warehouse.store');
+
+        Route::get('/destroy/{id}', [WarehouseController::class, 'warehouse_destroy'])->name('warehouse.destroy');
+
+        Route::get('/edit/{id}', [WarehouseController::class, 'warehouse_edit']);
+        Route::post('/update/{id}', [WarehouseController::class, 'warehouse_update'])->name('warehouse.update');
+
+    });
+
+    //SETTING ROUTE
+    Route::group(['prefix' => 'setting'], function () {
+
+        //SEOS SETTING ROUTE
+        Route::group(['prefix' => 'seos'], function () {
+            Route::get('/', [SettingController::class, 'setting_seo_index'])->name('setting.seo.index');
+            Route::post('/update/{id}', [SettingController::class, 'setting_seo_update'])->name('setting.seo.update');
+        });
+
+        //SMTP SETTING ROUTE
+        Route::group(['prefix' => 'smtp'], function () {
+            Route::get('/', [SettingController::class, 'setting_smtp'])->name('setting.smtp');
+             Route::post('/update/{id}', [SettingController::class, 'setting_smtp_update'])->name('setting.smtp.update');
+        });
+
+        //PAGE CREATE ROUTE
+        Route::group(['prefix' => 'page'], function () {
+            Route::get('/', [PagesController::class, 'create_index_page'])->name('create.index.page');
+            Route::get('/create', [PagesController::class, 'setting_create_page'])->name('setting.create.page');
+            Route::post('/store',[PagesController::class, 'page_store'])->name('page.store');
+            Route::delete('/destroy/{id}', [PagesController::class, 'page_destroy'])->name('page.destroy');
+            Route::get('/edit/{id}', [PagesController::class, 'page_edit'])->name('page.edit');
+            Route::post('/update/{id}', [PagesController::class, 'page_update'])->name('page.update');
+
+        });
+
+
+        //PAGE CREATE ROUTE
+        Route::group(['prefix' => 'website'], function () {
+            Route::get('/', [WebsiteController::class, 'website_setting'])->name('website.setting');
+            //Route::get('/create', [PagesController::class, 'setting_create_page'])->name('setting.create.page');
+            Route::post('/update/{id}', [WebsiteController::class, 'website_update'])->name('website.update');
+        });
+    });
+
 });
