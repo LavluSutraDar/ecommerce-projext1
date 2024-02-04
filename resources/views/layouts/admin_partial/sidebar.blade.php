@@ -142,6 +142,30 @@
                      </ul>
                  </li>
 
+                   <li class="nav-item">
+                     <a href="#" class="nav-link">
+                         <i class="fas fa-solid fa-gear nav-icon"></i>
+                         <p>
+                             Offer
+                             <i class="fas fa-angle-left right"></i>
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="{{route('coupon.index')}}" class="nav-link">
+                                 <i class="fa-solid fa-bars nav-icon"></i>
+                                 <p>Coupon</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="" class="nav-link">
+                                <i class="fa-solid fa-bars nav-icon"></i>
+                                 <p>E Campain</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+
                  <li class="nav-header">PROFILE</li>
 
                    <li class="nav-item">

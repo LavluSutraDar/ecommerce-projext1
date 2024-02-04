@@ -186,8 +186,8 @@
         });
     </script>
 
-    <script>  
-         $(document).on("click", "#delete", function(e){
+    <script>
+        $(document).on("click", "#delete", function(e){
              e.preventDefault();
              var link = $(this).attr("href");
                 swal({

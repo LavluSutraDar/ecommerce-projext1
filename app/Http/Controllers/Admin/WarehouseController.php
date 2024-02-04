@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -16,7 +15,6 @@ class WarehouseController extends Controller
 
     public function warehouse_index(Request $request)
     {
-
         if ($request->ajax()) {
             $warehouse_data = DB::table('warehouses')->latest()->get();
 
@@ -32,7 +30,6 @@ class WarehouseController extends Controller
                   <a href=" ' . route('warehouse.destroy', [$row->id]) . '" class="btn btn-danger btn-lg" id="delete"> 
                   <i class="fa-solid fa-trash-can"></i>
                   </a>';
-
                     return $actionbtn;
                 })->rawColumns(['action'])->make(true);
         }
@@ -63,13 +60,8 @@ class WarehouseController extends Controller
 
     public function warehouse_destroy($id)
     {
-
         //Quere Builder
         Db::table('warehouses')->where('id', $id)->delete();
-
-        //Elequent ORM // Model r maddome delete
-        //$cat = ChildCategoryController::find($id);
-        //$cat->delete();
 
         $notifacition = array(
             'message' => 'Ware House Deleted!',

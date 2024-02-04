@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\CoponController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubcategoryController;
@@ -27,6 +28,7 @@ Route::get('/admin-login', [LoginController::class, 'admin_login'])->name('admin
 
 
 Route::group(['middleware' => 'is_admin'], function () {
+
     Route::get('/admin/home', [AdminController::class, 'admin'])->name('admin.home');
     Route::post('/admin/logout', [AdminController::class, 'admin_logout'])->name('admin.logout');
     Route::get('/admin/password/change', [AdminController::class, 'password_change'])->name('password.change');
@@ -111,9 +113,7 @@ Route::group(['middleware' => 'is_admin'], function () {
             Route::delete('/destroy/{id}', [PagesController::class, 'page_destroy'])->name('page.destroy');
             Route::get('/edit/{id}', [PagesController::class, 'page_edit'])->name('page.edit');
             Route::post('/update/{id}', [PagesController::class, 'page_update'])->name('page.update');
-
         });
-
 
         //PAGE CREATE ROUTE
         Route::group(['prefix' => 'website'], function () {
@@ -123,4 +123,12 @@ Route::group(['middleware' => 'is_admin'], function () {
         });
     });
 
+    //COPON ROUTE
+    Route::group(['prefix' => 'coupon'], function () {
+        Route::get('/index', [CoponController::class, 'coupon_index'])->name('coupon.index');
+        Route::post('/store', [CoponController::class, 'coupon_store'])->name('coupon.store');
+        Route::get('/delete/{id}', [CoponController::class, 'coupon_delete'])->name('coupon.delete');
+        Route::get('/edit/{id}', [CoponController::class, 'coupon_edit']);
+        Route::post('/update', [CoponController::class, 'coupon_update'])->name('coupon.update');
+    });
 });
