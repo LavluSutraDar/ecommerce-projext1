@@ -4,7 +4,7 @@
          <div class="mb-3">
              <label class="form-label">Coupon code</label>
              <input type="text" class="form-control @error('coupon_code') is-invalid @enderror" name="coupon_code" value="{{$coupon->coupon_code}}">
-              <input type="hidden" name="id" value="{{$coupon->id}}">
+              <input type="hidden" name="id" value="{{$coupon->id}}"> 
 
              @error('coupon_code')
                  <span class="invalid-feedback" role="alert">

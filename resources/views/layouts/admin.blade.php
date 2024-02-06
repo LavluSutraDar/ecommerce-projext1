@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> @yield('title') | Coding With Apurva</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-------------------------- Google Font: Source Sans Pro -------------------------->
     <link rel="stylesheet"
@@ -252,6 +253,12 @@
                     form.submit()
                 }
             })
+        });
+
+        $.ajaxSetup({
+           headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
         });
     </script>
     <!-------------------------------LOGOUT SCRIPT----------------------------------->

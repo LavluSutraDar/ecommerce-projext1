@@ -40,6 +40,7 @@
                                             <th>S-L</th>
                                             <th>Coupon Code</th>
                                             <th>Coupon Date</th>
+                                            <th>Coupon Type</th>
                                             <th>Coupon Amount</th>
                                             <th>Coupon Status</th>
                                             <th>Action</th>
@@ -81,12 +82,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('coupon.store')}}" method="POST" id="add_form">
+                <form action="{{ route('coupon.store') }}" method="POST" id="add_form">
                     <div class="modal-body">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Coupon code</label>
-                            <input type="text" class="form-control @error('coupon_code') is-invalid @enderror" name="coupon_code">
+                            <input type="text" class="form-control @error('coupon_code') is-invalid @enderror"
+                                name="coupon_code">
 
                             @error('coupon_code')
                                 <span class="invalid-feedback" role="alert">
@@ -95,7 +97,7 @@
                             @enderror
                         </div>
 
-                         <div class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label">Coupon Date</label>
                             <input type="date" class="form-control" name="coupon_date"
                                 @error('coupon_date') is-invalid @enderror">
@@ -139,7 +141,8 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Coupon Submit</button>
+                            <button type="submit" class="btn btn-primary"> <span class="d-none">Loading ....</span>
+                                Submit</button>
                         </div>
                     </div>
                 </form>
@@ -151,8 +154,7 @@
 
 
     {{-- ---------------------------Child Category Edit Modal --------------------------- --}}
-    <div class="modal fade" id="editCouponModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editCouponModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -180,34 +182,57 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('coupon.index') }}",
-                columns: [
-                    {data: 'DT_RowIndex',name: 'DT_RowIndex'},
-                    {data: 'coupon_code', name: 'coupon_code'},
-                    {data: 'coupon_date', name: 'coupon_date'},
-                    //{data: 'coupon_type', name: 'coupon_type'},
-                    {data: 'coupon_amount', name: 'coupon_amount'},
-                    {data: 'status', name: 'status'},
-                    {data: 'action',name: 'action',orderable: true, searchable: true},
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'coupon_code',
+                        name: 'coupon_code'
+                    },
+                    {
+                        data: 'coupon_date',
+                        name: 'coupon_date'
+                    },
+                    {
+                        data: 'coupon_type',
+                        name: 'coupon_type'
+                    },
+                    {
+                        data: 'coupon_amount',
+                        name: 'coupon_amount'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
                 ],
             });
         });
 
         //STORE COUPON AJAX CALL
-          $(document).on('submit', '#add_form', function(e) {
-              e.preventDefault();
-              var url = $(this).attr('action');
-              var request = $(this).serialize();
-              $.ajax({
-                  url: url,
-                  type: 'post',
-                  data: request,
-                  success: function(data) {
-                      toastr.success(data);
-                      $('#add_form')[0].reset();
-                      table.ajax.reload();
-                  }
-              });
-          });
+        //   $(document).on('submit', '#add_form', function(e) {
+        //       e.preventDefault();
+        //       var url = $(this).attr('action');
+        //       var request = $(this).serialize();
+        //       $.ajax({
+        //           url: url,
+        //           type: 'post',
+        //           data: request,
+        //           success: function(data) {
+        //               toastr.success(data);
+        //               $('#add_form')[0].reset();
+        //               $('#couponModal').modal('hide');
+        //               table.ajax.reload();
+        //           }
+        //       });
+        //   });
 
         //   COUPON EDIT
         $('body').on('click', '.editCoupon', function() {
@@ -217,7 +242,7 @@
             });
         });
 
-           // UPDATE COUPON AJAX CALL
+        // UPDATE COUPON AJAX CALL
           $(document).on('submit', '#edit_form', function(e) {
               e.preventDefault();
               var url = $(this).attr('action');
@@ -229,47 +254,53 @@
                   success: function(data) {
                       toastr.success(data);
                       $('#add_form')[0].reset();
+                      $('#edit_form').modal('hide');
                       table.ajax.reload();
                   }
               });
           });
 
         // COUPON DELETE AJAX CALL
-        $(document).on('click', '#delete_coupon', function(e) {
-            e.preventDefault();
-            var url = $(this).attr('href');
-            $('#delete_form').attr('action', url);
-            swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $('#delete_form').submit();
-                    } else {
-                       swal('Your data safe!');
+
+        
+            $(document).on('click', '#delete_coupon', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#delete_form').attr('action', url);
+                swal({
+                        title: "Are you sure?",
+                        text: "Once deleted, you will not be able to recover this imaginary file!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $('#delete_form').submit();
+                        } else {
+                            swal('Your data safe!');
+                        }
+                    });
+            });
+
+            //DATA PASSE THROUGH HERE ajax call (relode chara delete)
+            $('#delete_form').submit(function(e) {
+                e.preventDefault();
+                var url = $(this).attr('action');
+                var request = $(this).serialize();
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    async:false,
+                    data: request,
+                    success: function(data) {
+                        //toastr.success(data);
+                        $('#delete_form')[0].reset();
+                        table.ajax.reload();
                     }
                 });
-        });
+            });
 
-        //DATA PASSE THROUGH HERE
-         $(document).on('submit', '#delete_form', function(e) {
-             e.preventDefault();
-             var url = $(this).attr('action');
-             var request = $(this).serialize();
-             $.ajax({
-                 url: url,
-                 type: 'post',
-                 data: request,
-                 success: function(data) {
-                     toastr.success(data);
-                     $('#delete_form')[0].reset();
-                     table.ajax.reload();
-                 }
-             });
-         });
+        
     </script>
 @endsection

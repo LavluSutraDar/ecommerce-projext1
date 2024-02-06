@@ -59,25 +59,24 @@ class CoponController extends Controller
         $data['status'] = $request->status;
 
          DB::table('copons')->insert($data);
-         //$notifacition = array(
-             //'message' => 'Coupon Store!',
-             //'alert-type' => 'success'
-         //);
-        //return redirect()->back()->with($notifacition);
-        return response()->json('Cupon Store!');
+         $notifacition = array(
+             'message' => 'Coupon Store!',
+             'alert-type' => 'success'
+         );
+        return redirect()->back()->with($notifacition);
+        //return response()->json('Cupon Store!');
     }
 
     public function coupon_delete($id){
-
         //Quere Builder
-        Db::table('copons')->where('id', $id)->delete();
+         Db::table('copons')->where('id', $id)->delete();
 
         $notifacition = array(
             'message' => 'Coupon Deleted!',
             'alert-type' => 'success'
         );
          return redirect()->back()->with($notifacition);
-         //return response()->json('Cupon Deleted!');
+         //return response()->json('Deleted!');
     }
 
     public function coupon_edit($id){
@@ -87,9 +86,9 @@ class CoponController extends Controller
 
     public function coupon_update(Request $request){
         // $validated = $request->validate([
-        //     'coupon_code' => 'required|unique:copons',
+        //     'coupon_code' => 'required',
         //     'coupon_date' => 'date_format:d/m/y',
-        //     'coupon_date' => 'nullable|required|date',
+        //     'coupon_date' => 'required|date',
         //     'coupon_type' => 'required',
         //     'coupon_amount' => 'required',
         //     'status' => 'required',
@@ -104,7 +103,7 @@ class CoponController extends Controller
         $data['status'] = $request->status;
 
         DB::table('copons')->where('id', $request->id)->update($data);
-        return response()->json('Cupon Store!');
+        return response()->json('Update!');
 
     }
 }
