@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\CoponController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PickupController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\WarehouseController;
@@ -24,9 +25,6 @@ use App\Http\Controllers\auth\LoginController;
 Route::get('/admin-login', [LoginController::class, 'admin_login'])->name('admin.login');
 
 // Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin.home')->middleware('is_admin');
-
-
-
 
 Route::group(['middleware' => 'is_admin'], function () {
 
@@ -89,6 +87,17 @@ Route::group(['middleware' => 'is_admin'], function () {
         Route::get('/edit/{id}', [WarehouseController::class, 'warehouse_edit']);
         Route::post('/update/{id}', [WarehouseController::class, 'warehouse_update'])->name('warehouse.update');
 
+    });
+
+    //Product ROUTE
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('/create', [ProductController::class, 'product_create'])->name('product.create');
+        //Route::post('/store', [ProductController::class, 'warehouse_store'])->name('warehouse.store');
+
+        // Route::get('/destroy/{id}', [WarehouseController::class, 'warehouse_destroy'])->name('warehouse.destroy');
+
+        // Route::get('/edit/{id}', [WarehouseController::class, 'warehouse_edit']);
+        // Route::post('/update/{id}', [WarehouseController::class, 'warehouse_update'])->name('warehouse.update');
     });
 
     //SETTING ROUTE

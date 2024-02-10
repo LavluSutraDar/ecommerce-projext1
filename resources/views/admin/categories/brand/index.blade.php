@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Brand Logo</label>
+                            <label for="input-file-now" class="form-label">Brand Logo</label>
                             <input type="file" id="input-file-now"
                                 class="dropify form-control @error('brand_logo') is-invalid @enderror" name="brand_logo">
 
