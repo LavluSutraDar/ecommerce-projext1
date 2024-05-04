@@ -32,7 +32,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">All Subcategory List here</h3>
                             </div>
-                            <!-- /.card-header -->
+
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
@@ -170,6 +170,7 @@
                 $('#modal_body').html(data);
             })
         })
+
     </script>
     
 @endsection

@@ -17,11 +17,15 @@ class SubcategoryController extends Controller
         $this->middleware('auth');
     }
 
+    
     //INDEX METHOD FOR READ DATA
-    public function subcategory_index()
+    public function subcategory_index(Request $request)
     {
         //Quere dia join
-        $subcategories = DB::table('subcategories')->leftjoin('categories', 'subcategories.category_id', 'categories.id')->select('subcategories.*', 'categories.category_name')->get();
+       
+        $subcategories = DB::table('subcategories')
+        ->leftjoin('categories', 'subcategories.category_id', 'categories.id')
+        ->select('subcategories.*', 'categories.category_name')->get();
 
         //CATEGORY
         $categories = DB::table('categories')->get();

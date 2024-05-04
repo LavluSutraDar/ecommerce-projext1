@@ -22,7 +22,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Subcategory Submit</button>
+            <button type="submit" class="btn btn-primary">Brand Submit</button>
         </div>
 
     </form>

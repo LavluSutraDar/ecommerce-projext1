@@ -44,6 +44,8 @@
     <!------------------------ Dropify your input files with style ------------------------>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/sweetalert/sweetalert.min.js') }}">
+    <!------------------------ Tags input css link ------------------------>
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('backend/tags/style.css') }}"> --}}
  
 </head>
 
@@ -65,15 +67,13 @@
         @yield('admin_content')
         <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
 
         </aside>
-        <!-- /.control-sidebar -->
+        
     </div>
-    <!-- ./wrapper -->
-
-    <!-- REQUIRED SCRIPTS -->
+ 
+    {{-- <script src="{{ asset('backend/tags/text.js') }}"></script> --}}
     <!-- jQuery -->
     <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap -->
@@ -110,7 +110,7 @@
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-
+    
     <script>
         $(function() {
             $("#example1").DataTable({

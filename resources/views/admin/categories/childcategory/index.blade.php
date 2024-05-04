@@ -84,7 +84,7 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Category/Subcategory Name</label>
                             <select name="subcategory_id" class="form-control">
-                                <option selected disabled value="hidden">Chosse Category</option>
+                                <option selected disabled value="hidden">Chosse Subcategory</option>
 
                                 @foreach ($category as $categories)
                                     @php
@@ -92,7 +92,7 @@
                                             ->where('category_id', $categories->id)
                                             ->get();
                                     @endphp
-                                    <option style="color: yellow" value="{{ $categories->id }}">{{ $categories->category_name }}</option>
+                                    <option disabled style="color: yellow" value="{{ $categories->id }}">{{ $categories->category_name }}</option>
 
                                     @foreach ($subcat as $subcategory)
                                         <option value="{{ $subcategory->id }}"> ---{{ $subcategory->subcategory_name }}
@@ -116,7 +116,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Subcategory Submit</button>
+                            <button type="submit" class="btn btn-primary">Child Category Submit</button>
                         </div>
                     </div>
                 </form>
@@ -132,7 +132,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Child Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

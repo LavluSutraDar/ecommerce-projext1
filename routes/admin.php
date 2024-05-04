@@ -43,6 +43,10 @@ Route::group(['middleware' => 'is_admin'], function () {
         Route::post('/update', [CategoryController::class, 'category_update'])->name('category.update');
     });
 
+    //global route
+    Route::get('/get-child-category/{id}', [CategoryController::class, 'getChildCategory']);
+
+
     //Sub CATEGORY ROUTES
     Route::group(['prefix' => 'subcategory'], function () {
         Route::get('/index', [SubcategoryController::class, 'subcategory_index'])->name('subcategory.index');
@@ -51,6 +55,8 @@ Route::group(['middleware' => 'is_admin'], function () {
         Route::get('/edit/{id}', [SubcategoryController::class, 'subcategory_edit']);
 
         Route::post('/update', [SubcategoryController::class, 'subcategory_update'])->name('subcategory.update');
+
+       
     });
 
     //CHILD CATEGORY ROUTE
@@ -91,13 +97,26 @@ Route::group(['middleware' => 'is_admin'], function () {
 
     //Product ROUTE
     Route::group(['prefix' => 'product'], function () {
+        Route::get('/index', [ProductController::class, 'product_index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'product_create'])->name('product.create');
-        //Route::post('/store', [ProductController::class, 'warehouse_store'])->name('warehouse.store');
+        Route::post('/store', [ProductController::class, 'product_store'])->name('product.store');
 
-        // Route::get('/destroy/{id}', [WarehouseController::class, 'warehouse_destroy'])->name('warehouse.destroy');
+         Route::get('/destroy/{id}', [ProductController::class, 'product_destroy'])->name('product.destroy');
 
-        // Route::get('/edit/{id}', [WarehouseController::class, 'warehouse_edit']);
+         Route::get('/edit', [ProductController::class, 'product_edit'])->name('product.edit');
         // Route::post('/update/{id}', [WarehouseController::class, 'warehouse_update'])->name('warehouse.update');
+
+        //FEATRED PRODUCT
+        Route::get('/active-featured/{id}', [ProductController::class, 'active_featured']);
+        Route::get('/deactive-featured/{id}', [ProductController::class, 'deactive_featured']);
+
+        //TO DAY DEAL
+        Route::get('/active-todaydeal/{id}', [ProductController::class, 'active_todaydeal']);
+        Route::get('/deactive-todaydeal/{id}', [ProductController::class, 'deactive_todaydeal']);
+
+        //STATUS
+        Route::get('/active-status/{id}', [ProductController::class, 'active_status']);
+        Route::get('/deactive-status/{id}', [ProductController::class, 'deactive_status']);
     });
 
     //SETTING ROUTE

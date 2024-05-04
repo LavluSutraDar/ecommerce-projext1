@@ -1,29 +1,25 @@
-@extends('layouts.admin')
+ @extends('layouts.admin')
 @section('title')
     New Product
 @endsection
 
 @section('admin_content')
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.css"integrity="sha512-3uVpgbpX33N/XhyD3eWlOgFVAraGn3AfpxywfOTEQeBDByJ/J7HkLvl4mJE1fvArGh4ye1EiPfSBnJo2fgfZmg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script type="text/javascript" src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js">
+</script> 
 
-    <script type="text/javascript"
-        src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+<style type="text/css">
+  .bootstrap-tagsinput .tag {
+    background: #428bca;;
+    border: 1px solid white; 
+    padding: 1 6px;
+    padding-left: 2px;
+    margin-right: 2px;
+    color: white;
+    border-radius: 4px;
+  }
+</style> 
 
-    <style type="text/css">
-        .bootstrap-tagsinput .tag {
-            background: #428bca;
-            ;
-            border: 1px solid white;
-            padding: 1 6px;
-            padding-left: 2px;
-            margin-right: 2px;
-            color: white;
-            border-radius: 4px;
-        }
-    </style>
 
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -56,7 +52,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <!-- left column -->
@@ -71,41 +67,51 @@
                                     <div class="row">
 
                                         <div class="form-group col-lg-6">
-                                            <label for="product_name">Product Name <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" name="product_name"
-                                                value="{{ old('name') }}" required="" id="product_name"
-                                                @error('product_name') is-invalid @enderror">
+                                            <label for="product_name" class="form-label">Product Name</label>
+                                            <input type="text" name="product_name" class="form-control @error('product_name') is-invalid @enderror" id="product_name" value="{{old('product_name')}}">
 
-                                            @error('product_name ')
+                                            @error('product_name')
                                                 <span class="invalid-feedback"role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
 
-                                        <div class="form-group col-lg-6">
+                                         <div class="form-group col-lg-6">
                                             <label for="product_code">Product Code <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" value="" name="product_code"
-                                                required="" id="product_code"
-                                                @error('product_code') is-invalid @enderror>
+                                            <input type="text" class="form-control @error('product_code') is-invalid @enderror" value="{{ old('product_code') }}" name="product_code" id="product_code">
 
-                                            @error('product_code ')
+                                            @error('product_code')
                                                 <span class="invalid-feedback"role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
-
                                     </div>
+                                     
                                     <div class="row">
 
                                         <div class="form-group col-lg-6">
-                                            <label for="subcategory_id">Category/Subcategory <span
+                                            <label for="subcategory_id">Category/ Subcategory <span
                                                     class="text-danger">*</span> </label>
                                             <select class="form-control" name="subcategory_id" id="subcategory_id">
-                                                <option disabled="" selected="">==choose category==</option>
+                                                <option disabled selected="">choose category</option>
+                                                @foreach ($categories as $categorie)
+                                                  @php
+                                                    $subcat = DB::table('subcategories')
+                                                        ->where('category_id', $categorie->id)
+                                                        ->get();
+                                                    @endphp
+                                                
+                                                <option disabled style="color: yellow">{{$categorie->category_name}}</option>
+
+                                                @foreach ($subcat as $subcategory)
+                                                  <option value="{{ $subcategory->id }}"> ---{{     $subcategory->subcategory_name }}
+                                                  </option>
+                                                @endforeach
+                                                    
+                                                @endforeach
 
                                             </select>
                                         </div>
@@ -114,7 +120,7 @@
                                             <label for="childcategory_id">Child category<span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" name="childcategory_id" id="childcategory_id">
-
+                                            <option disabled selected="">choose Child 
                                             </select>
                                         </div>
 
@@ -125,14 +131,22 @@
                                             <label for="brand_id">Brand <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" name="brand_id">
-                                                <option value=""></option>
+                                              <option disabled selected="">choose Brands</option>
+                                              @foreach ($brands as $brand)
+                                                  <option value="{{ $brand->id }}">{{     $brand->brand_name }}
+                                                  </option>
+                                                @endforeach
                                             </select>
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label for="pickup_point_id">Pickup Point</label>
                                             <select class="form-control" name="pickup_point_id">
-                                                <option value="">1</option>
+                                                <option disabled selected="">Pickup Point</option>
+                                                @foreach ($pickupPoints as $pickupPoint)
+                                                  <option value="{{ $pickupPoint->id }}">{{     $pickupPoint->pickup_point_name }}
+                                                  </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -141,38 +155,65 @@
                                         <div class="form-group col-lg-6">
                                             <label for="product_unit">Product Unit <span class="text-danger">*</span>
                                             </label>
+                                            <input type="text" name="product_unit"   id="product_unit" class="form-control  @error('product_unit') is-invalid @enderror" value="{{old('product_unit')}}">
 
-                                            <select class="form-control" name="product_unit" id="product_unit">
-                                                <option value="">1</option>
-                                            </select>
+                                            @error('product_unit')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label for="product_tags">Product Tags</label><br>
-                                            <input type="text" name="product_tags" id="product_tags" class="form-control"
-                                                value="{{ old('product_tags') }}" name="tags" data-role="tagsinput">
+                                            <input type="text" name="product_tags" class="form-control @error('product_tags') is-invalid @enderror" data-role="tagsinput" value="{{old('product_tags')}}">
+
+                                            @error('product_tags')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-lg-4">
                                             <label for="purchase_price">Purchase Price </label>
-                                            <input type="text" class="form-control" {{ old('purchase_price') }}
+                                            <input type="text" class="form-control @error('purchase_price') is-invalid @enderror" value="{{ old('purchase_price') }}"
                                                 name="purchase_price" id="purchase_price">
+
+                                                @error('purchase_price')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                         </div>
 
                                         <div class="form-group col-lg-4">
                                             <label for="selling_price">Selling Price <span class="text-danger">*</span>
                                             </label>
+
                                             <input type="text" name="selling_price" value="{{ old('selling_price') }}"
-                                                class="form-control" required="" id="selling_price">
+                                                class="form-control @error('selling_price') is-invalid @enderror" id="selling_price">
+
+                                                @error('selling_price')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-4">
                                             <label for="discount_price">Discount Price </label>
-                                            <input type="text" name="discount_price	"
-                                                value="{{ old('discount_price') }}" class="form-control"
-                                                id="discount_price	">
+                                            <input type="text" name="discount_price"
+                                                value="{{ old('discount_price') }}" class="form-control @error('discount_price') is-invalid @enderror"
+                                                id="discount_price">
+
+                                                @error('discount_price')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                     </div>
@@ -180,8 +221,13 @@
                                         <div class="form-group col-lg-6">
                                             <label for="warehouse">Warehouse <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" name="warehouse" id="warehouse">
-                                                <option value=""></option>
+                                            <select class="form-control" name="warehouse">
+                                                 <option disabled selected="">Warehouse</option>
+                                                @foreach ($warehouses as $warehouse)
+                                                  <option value="{{ $warehouse->warehouse_name }}">
+                                                    {{ $warehouse->warehouse_name }}
+                                                  </option>
+                                                @endforeach
 
                                             </select>
                                         </div>
@@ -189,8 +235,14 @@
                                         <div class="form-group col-lg-6">
                                             <label for="stock_quantity">Stock Quantity</label>
                                             <input type="text" name="stock_quantity"
-                                                value="{{ old('stock_quantity') }}" class="form-control"
+                                                value="{{ old('stock_quantity') }}" class="form-control @error('stock_quantity') is-invalid @enderror"
                                                 id="stock_quantity">
+
+                                                @error('stock_quantity')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                               @enderror
                                         </div>
 
                                     </div>
@@ -198,33 +250,44 @@
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="color">Color</label><br>
-                                            <input type="text" class="form-control" value="{{ old('color') }}"
-                                                data-role="tagsinput" name="color" id="color" />
+                                             <input type="text" class="form-control tag" value="{{ old('color') }}" data-role="tagsinput" name="color" />
+                                             
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label for="size">Size</label><br>
-                                            <input type="text" class="form-control" value="{{ old('size') }}"
-                                                data-role="tagsinput" name="size" id="size" />
+                                            <input type="text" class="form-control tag" value="{{ old('size') }}" data-role="tagsinput" name="size"  />
                                         </div>
-
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-lg-12">
                                             <label for="product_description	">Product Details</label>
-                                            <textarea class="form-control textarea" name="product_description" id="product_description">{{ old('product_description	') }}</textarea>
-                                        </div>
+                                            <textarea class="form-control textarea @error('product_description') is-invalid @enderror" name="product_description" id="product_description" value="{{ old('product_description') }}">
+                                            </textarea>
 
+                                            @error('product_description')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-lg-12">
                                             <label for="product_video">Video Embed Code</label>
-                                            <input class="form-control" name="product_video" id="product_video"
+                                            <input class="form-control @error('product_video') is-invalid @enderror" name="product_video" id="product_video"
                                                 value="{{ old('product_video') }}"
                                                 placeholder="Only code after embed word">
+
                                             <small class="text-danger">Only code after embed word</small>
+
+                                            @error('product_video')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -237,11 +300,19 @@
                                 <div class="card-body">
 
                                     <div class="form-group">
-                                        <label for="product_thumbnail">Main Thumbnail <span class="text-danger">*</span>
-                                        </label><br>
-                                        <input type="file" name="product_thumbnail" required="" accept="image/*"
-                                            class="dropify" id="product_thumbnail">
-                                    </div><br>
+                                        <label for="product_thumbnail">Product Thumbnail <span class="text-danger">*</span>
+                                        </label>
+                                        <br>
+                                        <input type="file" name="product_thumbnail" accept="image/*"
+                                            class="dropify @error('product_thumbnail') is-invalid @enderror" id="product_thumbnail">
+
+                                            @error('product_thumbnail')
+                                                <span class="invalid-feedback"role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                    </div>
+                                    <br>
 
                                     <div class="">
                                         <table class="table table-bordered" id="dynamic_field">
@@ -249,16 +320,20 @@
                                                 <h3 class="card-title">More Images (Click Add For More Image)</h3>
                                             </div>
                                             <tr>
-                                                <td><input type="file" accept="image/*" name="product_images[]"
-                                                        class="form-control name_list" /></td>
-                                                <td><button type="button" name="add" id="add"
-                                                        class="btn btn-success">Add</button></td>
+                                                <td>
+                                                    <input type="file" accept="image/*" name="product_images[]"
+                                                        class="form-control name_list"/>
+                                                </td>
+                                                <td>
+                                                    <button type="button" name="add" id="add"
+                                                        class="btn btn-success">Add</button>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
-
+ 
                                     <div class="card p-4">
-                                        <h6>Featured Product</h6>
+                                        <h6>Product Featured</h6>
                                         <input type="checkbox" name="product_featured" value="1" checked
                                             data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                     </div>
@@ -289,12 +364,16 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-info ml-2" type="submit">Submit</button>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-info ml-2" type="submit">Submit</button>
+                        </div>
                     </div>
                 </form>
             </div>
         </section>
-
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -304,32 +383,32 @@
     
 
     <script type="text/javascript">
-        $('.dropify').dropify(); //dropify image
+
+        //dropify image
+        $('.dropify').dropify(); 
         $("input[data-bootstrap-switch]").each(function() {
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
         });
 
-        //ajax request send for collect childcategory
-        $("#subcategory_id").change(function() {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{ url('/get-child-category/') }}/" + id,
-                type: 'get',
-                success: function(data) {
-                    $('select[name="childcategory_id"]').empty();
-                    $.each(data, function(key, data) {
-                        $('select[name="childcategory_id"]').append('<option value="' + data
-                            .id + '">' + data.childcategory_name + '</option>');
-                    });
-                }
-            });
+    //ajax request send for collect childcategory
+     $("#subcategory_id").change(function(){
+      var id = $(this).val();
+      $.ajax({
+           url: "{{ url("/get-child-category/") }}/"+id,
+           type: 'get',
+           success: function(data) {
+                $('select[name="childcategory_id"]').empty();
+                   $.each(data, function(key,data){
+                      $('select[name="childcategory_id"]').append('<option value="'+ data.id +'">'+ data.childcategory_name +'</option>');
+                });
+           }
         });
+     });
 
+        //MULTIPAL IMAGE STORE 
         $(document).ready(function() {
             var postURL = "<?php echo url('addmore'); ?>";
             var i = 1;
-
-
             $('#add').click(function() {
                 i++;
                 $('#dynamic_field').append('<tr id="row' + i +

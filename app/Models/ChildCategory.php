@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 
-class Subcategory extends Model
+class ChildCategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'subcategory_name',
-        'subcategory_slug',
         'category_id',
+        'subcategory_id',
+        'childcategory_name	',
+        'childcategory_slug'
     ];
 
-    public function category(){
-        return $this->belongsTo(Category::class, 'category_id');
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

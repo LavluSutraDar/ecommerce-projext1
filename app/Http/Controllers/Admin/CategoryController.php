@@ -101,4 +101,11 @@ class CategoryController extends Controller
         return redirect()->back()->with($notifacition);
 
     }
+
+    //Get child Category
+    public function getChildCategory($id){
+        $data = DB::table('childcategories')->where('subcategory_id', $id)->get();
+        return response()->json($data);
+
+    }
 }
